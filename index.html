@@ -203,6 +203,34 @@
 
             }
 
+            // Set up user guide
+            function UserGuide(controlDiv, map) {
+
+                // Set CSS for the control border
+                var controlUI = document.createElement('div');
+                controlUI.style.backgroundColor = '#fff';
+                controlUI.style.border = '2px solid #fff';
+                controlUI.style.borderRadius = '3px';
+                controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+                controlUI.style.cursor = 'pointer';
+                controlUI.style.marginBottom = '22px';
+                controlUI.style.textAlign = 'left';
+                controlUI.title = 'User Guide';
+                controlDiv.appendChild(controlUI);
+ 
+                // Set CSS for the control interior
+                var controlText = document.createElement('div');
+                controlText.style.color = 'rgb(25,25,25)';
+                controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+                controlText.style.fontSize = '12px';
+                controlText.style.lineHeight = '18px';
+                controlText.style.paddingLeft = '5px';
+                controlText.style.paddingRight = '5px';
+                controlText.innerHTML = 'When you click on "Draw Circle" or "Draw Rectangle", you can adjust it by dragging the points.<br />Once you adjust the circle or rectangle, the map shows you the restaurants available in the area defined by the circle or rectangle.<br />Drag the black circle to your current location.  Click on a marker to get directions to that restaurant from your current location.';
+                controlUI.appendChild(controlText);
+
+            }
+
 
             // Define a circle and set its editable property to true.
             var circle = new google.maps.Circle({
@@ -468,6 +496,13 @@
 
                 drawRectangleControlDiv.index = 2;
                 map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(drawRectangleControlDiv);
+
+                var userGuideDiv = document.createElement('div');
+                var userGuide = new UserGuide(userGuideDiv, map);
+
+                userGuideDiv.index = 1;
+                map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(userGuideDiv);
+
 
 			}
 
