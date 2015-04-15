@@ -313,6 +313,8 @@
                         createMarker(results[i]);
                     }
                 }
+                console.log("markers: " + markers);
+                console.log("markers.length: " + markers.length);
             }
 
 
@@ -326,6 +328,16 @@
                     },
                     callback
                 );
+                var ne = rectangle.getBounds().getNorthEast();
+                var contentString = '<b>Number of restaurants: </b>' + markers.length;
+
+                // Set the info window's content and position.
+                rectangleInfoWindow.setContent(contentString);
+                rectangleInfoWindow.setPosition(ne);
+
+                rectangleInfoWindow.open(map);
+
+                // searchBox.setBounds(rectangle.getBounds());
             }
 
 
@@ -338,6 +350,15 @@
                     },
                     callback
                 );
+                var n = circle.getCenter();
+                var contentString = '<b>Number of restaurants: </b>' + markers.length;
+
+                // Set the info window's content and position.
+                circleInfoWindow.setContent(contentString);
+                circleInfoWindow.setPosition(n);
+
+                circleInfoWindow.open(map);
+                // searchBox.setBounds(circle.getBounds());
             }
 
 
@@ -404,7 +425,7 @@
                 input = (document.getElementById('pac-input'));
                 map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-                var searchBox = new google.maps.places.SearchBox((input));
+                searchBox = new google.maps.places.SearchBox((input));
 
 
                 // [START region_getplaces]
@@ -450,11 +471,15 @@
                 });
 
 
+                // Define circle info window
+                circleInfoWindow = new google.maps.InfoWindow();
+                // Define rectangle info window
+                rectangleInfoWindow = new google.maps.InfoWindow();
+                
                 // Add an event listener on the circle.
                 google.maps.event.addListener(circle, 'radius_changed', showNewCirc);
                 // Add an event listener on the rectangle.
                 google.maps.event.addListener(rectangle, 'bounds_changed', showNewRect);
-
 
                 currentMarker = new google.maps.Marker({
                     position: cebu_city,
